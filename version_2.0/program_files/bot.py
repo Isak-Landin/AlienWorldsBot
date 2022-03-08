@@ -4,7 +4,6 @@ from bot_logic import preparation_sequence as p_sequence
 from bot_logic import mining_sequence as m_sequence
 import time
 
-
 class Bot:
     def __init__(self, username, password):
         self.username = username

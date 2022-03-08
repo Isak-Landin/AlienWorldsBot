@@ -6,6 +6,7 @@ import traceback
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from help_scripts import BrowserWindowHandler as bwh
+from bot_logic import extension_functions_compiled
 
 # WHEN BUILDING WITH PY2EXE, .parent.parent.parent
 # WHEN RUNNING IN PYCHARM .parent.parent
@@ -41,6 +42,8 @@ def start_chrome(port):
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_experimental_option("debuggerAddress", f"127.0.0.1:{port}")
         driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+
+
     except:
         print(traceback.print_exc())
     finally:
@@ -70,13 +73,22 @@ def start_chrome_and_retrieve_windows(port):
             # Retrieve windows
             pyget_chrome_window = bwh.get_new_pygetwindow_window("Chrome", pygetwindow_previous_windows)
             driver_parent_guid = bwh.get_selenium_driver_window_parent_guid(driver)
+            driver = extension_functions_compiled.setup_extension(
+                driver=driver,
+                window_id=pyget_chrome_window
+            )
+
+            driver_parent_guid = driver.window_handles[0]
             chrome_data_dict = {
                     "driver": driver,
                     "pyget_chrome_window": pyget_chrome_window,
                     "driver_parent_guid": driver_parent_guid
                 }
+
             print(f'Created chrome instance with following data: \n'
                   f'[ driver: {driver} ], '
                   f'[ pyget_chrome_window: {pyget_chrome_window} ], '
                   f'[ driver_parent_guid: {driver_parent_guid} ]')
+
+
             return chrome_data_dict

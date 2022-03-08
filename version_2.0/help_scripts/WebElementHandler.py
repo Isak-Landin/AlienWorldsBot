@@ -16,3 +16,4 @@ def retrieve_element_by_id(driver, id):
 
 def retrieve_element_by_class_name(driver, class_name):
     return WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CLASS_NAME, class_name)))
+

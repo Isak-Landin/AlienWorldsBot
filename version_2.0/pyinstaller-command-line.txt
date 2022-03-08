@@ -1,0 +1,1 @@
+pyinstaller --hidden-import=urllib3 --hidden-import=pathlib --hidden-import=requests --hidden-import=_ctypes --hidden-import=selenium --hidden-import=json --hidden-import=types --hidden-import=pygetwindow --hidden-import=cv2 --hidden-import=xml --hidden-import=pyautogui cli.py
